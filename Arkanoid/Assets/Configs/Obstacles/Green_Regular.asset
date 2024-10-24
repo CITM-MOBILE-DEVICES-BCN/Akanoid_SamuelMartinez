@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Green_Regular
   m_EditorClassIdentifier: 
   icon: {fileID: -6029991969101318831, guid: c77a20011fee4694cb75577a7509ffda, type: 3}
-  booster: {fileID: 11400000, guid: 3996af2f61b9cce48aba70e104a52169, type: 2}
-  health: 1
+  booster: {fileID: 0}
+  health: 3

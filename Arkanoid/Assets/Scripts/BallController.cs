@@ -24,7 +24,7 @@ public class BallController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         var r = Random.Range(-1.0f, 1.0f);
-        if (r == 0) r = 0.5f; // Evitar que r sea 0
+        if (r == 0) r = 0.5f; 
         rb.velocity = new Vector2(r, 2).normalized * initialSpeed;
     }
 

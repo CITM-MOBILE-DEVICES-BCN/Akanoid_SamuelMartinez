@@ -35,7 +35,7 @@ public class UiController : MonoBehaviour
         for (int i = 0; i < GameManager.instance.facade.scoreManager.numberOfLifes; i++)
         {
             var lifeIcon = Instantiate(lifeIconPrefab, transform);
-            lifeIcon.transform.position = new Vector3(lifeIcon.transform.position.x , lifeIcon.transform.position.y - i * 50, lifeIcon.transform.position.z);
+            lifeIcon.transform.position = new Vector3(lifeIcon.transform.position.x , lifeIcon.transform.position.y + i * 50, lifeIcon.transform.position.z);
             lifeIcons.Add(lifeIcon);
         }
         referenceScore = GameManager.instance.facade.scoreManager.numberOfLifes;

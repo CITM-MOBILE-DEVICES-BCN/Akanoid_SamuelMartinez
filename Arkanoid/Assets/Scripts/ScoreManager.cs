@@ -45,13 +45,6 @@ public class ScoreManager
         numberOfLifes--;
         
     }
-
-    public void SetDefaultValues()
-    {
-        score = 0;
-        highScore = 0;
-        numberOfLifes = 3;
-    }
     public void ResetPlayer()
     {
         score = 0;

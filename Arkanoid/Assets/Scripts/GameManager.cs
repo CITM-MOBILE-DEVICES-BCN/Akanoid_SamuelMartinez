@@ -92,7 +92,6 @@ public class GameManager : MonoBehaviour
         GameState.currentState = GameState.State.GameOver;
         Time.timeScale = 0;
         facade.ResetData();
-        // Llamar a la función del UI Controller
         UiController.instance.SetLoseScene();
     }
     public void SetWinScene()

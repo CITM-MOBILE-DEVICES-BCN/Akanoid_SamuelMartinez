@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Yellow_Spwanballs
   m_EditorClassIdentifier: 
   icon: {fileID: -2047613651344142497, guid: e869268efd7d38745a52967381cef55f, type: 3}
-  booster: {fileID: 11400000, guid: 3996af2f61b9cce48aba70e104a52169, type: 2}
+  booster: {fileID: 0}
   health: 1

@@ -54,9 +54,17 @@ public class BoardController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.A) && !barPrefab.isFollowingABall)
             {
-                barPrefab.isFollowingABall = true;
-                barPrefab.ballToFollowPosition = allBalls[0].GetComponent<RectTransform>();
-                UiController.instance.SetSlider(false);
+                if(allBalls.Count > 0)
+                {
+                    barPrefab.isFollowingABall = true;
+                    barPrefab.ballToFollowPosition = allBalls[0].GetComponent<RectTransform>();
+                    UiController.instance.SetSlider(false);
+
+                }
+                else
+                {
+                    Debug.Log("No balls on scene, wait until there is one ");
+                }
             }
             else if (Input.GetKeyDown(KeyCode.Q) && barPrefab.isFollowingABall)
             {
@@ -111,6 +119,7 @@ public class BoardController : MonoBehaviour
         {
             if (boosterConfig != null)
             {
+               
                 var booster = Instantiate(boosterPrefab, this.transform);
                 RectTransform rectTransform = booster.GetComponent<RectTransform>();
                 rectTransform.position = spawnPosition;
@@ -119,8 +128,7 @@ public class BoardController : MonoBehaviour
         }
         else
         {
-            //You win code
-            
+            //You win code         
             GameManager.instance.SetWinScene();
         }
             
@@ -135,15 +143,15 @@ public class BoardController : MonoBehaviour
                 InstantiateBall();
                 break;
             case boostertype.SpawnBalls:
-                var currentBallsOnScreen = allBalls.Count;
-                for (int i = 0; i < currentBallsOnScreen; i++)
-                {
-                    var newBall = Instantiate(ballPrefab, this.transform);
-                    RectTransform newBallRectTransform = newBall.GetComponent<RectTransform>();
-                    RectTransform existingBallRectTransform = allBalls[i].GetComponent<RectTransform>();
-                    newBallRectTransform.position = new Vector2(existingBallRectTransform.position.x, existingBallRectTransform.position.y);
-                    allBalls.Add(newBall);
-                }
+                //var currentBallsOnScreen = allBalls.Count;
+                //for (int i = 0; i < currentBallsOnScreen; i++)
+                //{
+                //    var newBall = Instantiate(ballPrefab, this.transform);
+                //    RectTransform newBallRectTransform = newBall.GetComponent<RectTransform>();
+                //    RectTransform existingBallRectTransform = allBalls[i].GetComponent<RectTransform>();
+                //    newBallRectTransform.position = new Vector2(existingBallRectTransform.position.x, existingBallRectTransform.position.y);
+                //    allBalls.Add(newBall);
+                //}
                 break;
             case boostertype.ReduceVelocity:
                 break;

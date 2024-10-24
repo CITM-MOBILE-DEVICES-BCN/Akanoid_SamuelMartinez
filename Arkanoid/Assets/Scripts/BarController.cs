@@ -33,15 +33,9 @@ public class BarController : MonoBehaviour
 
     private void Update()
     {
-        if (isFollowingABall)
+        if (isFollowingABall && ballToFollowPosition != null)
         {
             FollowPosition(ballToFollowPosition);           
-        }
-        else if (Input.GetKeyDown(KeyCode.Q) && isFollowingABall)
-        {
-            UiController.instance.SetSlider(true);
-            isFollowingABall = false;
-
         }
     }
 }

@@ -13,6 +13,7 @@ public class BallController : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 lastVelocity;
     private UnityAction<BallController> onBallDestroyed;
+    private bool isPlayingSoundEffect = false;
 
     public void Init(UnityAction<BallController> onBallDestroyed)
     {
@@ -36,6 +37,11 @@ public class BallController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Death"))
         {
+            if (!isPlayingSoundEffect)
+            {
+                GameManager.instance.soundManager.PlayBallDeadSoundEffect();
+                isPlayingSoundEffect = true;
+            }
             rb.velocity = Vector2.zero;
             gameObject.transform.DOShakePosition(1.0f, 10, 10, 50, true).OnComplete(() =>
             {
@@ -46,6 +52,8 @@ public class BallController : MonoBehaviour
         }
         else
         {
+            GameManager.instance.soundManager.PlayBounceSoundEffect();
+
             Vector2 direction = Vector2.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
 
             float currentSpeed = rb.velocity.magnitude;

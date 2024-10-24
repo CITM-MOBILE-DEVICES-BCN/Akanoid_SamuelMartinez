@@ -19,22 +19,48 @@ public class UiController : MonoBehaviour
     [SerializeField] private GameObject pauseScene;
     [SerializeField] private GameObject winScreen;
     [SerializeField] private GameObject loseScreen;
+    [SerializeField] private GameObject lifeIconPrefab;
+    [SerializeField] private List<GameObject> lifeIcons;
+    private int referenceScore;
 
     public void Start()
     {
         instance = this;
+        lifeIcons = new List<GameObject>();
         slider.onValueChanged.AddListener(barPrefab.AdjustBarPosition);
         canvasController.Init(screenLimits.AdjustColliderSize);
         pauseScene.gameObject.SetActive(false);
         winScreen.gameObject.SetActive(false);
         loseScreen.gameObject.SetActive(false);
+        for (int i = 0; i < GameManager.instance.facade.scoreManager.numberOfLifes; i++)
+        {
+            var lifeIcon = Instantiate(lifeIconPrefab, transform);
+            lifeIcon.transform.position = new Vector3(lifeIcon.transform.position.x , lifeIcon.transform.position.y - i * 50, lifeIcon.transform.position.z);
+            lifeIcons.Add(lifeIcon);
+        }
+        referenceScore = GameManager.instance.facade.scoreManager.numberOfLifes;
     }
 
     private void Update()
     {
         scoreText.text = GameManager.instance.facade.scoreManager.score.ToString();
         highSocreText.text = GameManager.instance.facade.scoreManager.highScore.ToString();
-        lifesText.text = GameManager.instance.facade.scoreManager.numberOfLifes.ToString();
+        var numberOfLifes = GameManager.instance.facade.scoreManager.numberOfLifes;
+        if(referenceScore!= numberOfLifes)
+        {
+            referenceScore = numberOfLifes;
+            if(referenceScore == 3)
+            {
+                referenceScore = 0;
+
+            }
+            DestroyLastLife();
+        }
+    }
+
+    public void DestroyLastLife()
+    {
+        Destroy(lifeIcons[referenceScore]);        
     }
 
     public void SetSlider(bool condition)

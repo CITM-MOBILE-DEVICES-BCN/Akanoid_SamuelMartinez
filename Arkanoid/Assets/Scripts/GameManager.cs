@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
 
     public static GameManager instance;
+    public SoundManager soundManager;
     public GameFacade facade;
     private bool isPaused = false;
     public int numLevels = 2;
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
         facade = new GameFacade();
         facade.Init();
+        soundManager.PlayMenuMusic();
     }
     void Start()
     {
@@ -35,9 +37,12 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(1);
         facade.InitGame(true);
         facade.LevelUp();
+        soundManager.StopMenuMusic();
+        soundManager.PlayGameplayMusic();
     }
     public void ContinueGame()
     {
+      
         Time.timeScale = 1;
         facade.InitGame(false);
         var level = facade.GetSavedLevel();
@@ -51,6 +56,8 @@ public class GameManager : MonoBehaviour
         }
         SceneManager.LoadScene(level);
         facade.SaveGame();
+        soundManager.StopMenuMusic();
+        soundManager.PlayGameplayMusic();
     }
     public void SetPause()
     {
@@ -81,6 +88,7 @@ public class GameManager : MonoBehaviour
 
     public void SetGameOverScene()
     {
+        soundManager.PlayDeathSoundEffect();
         GameState.currentState = GameState.State.GameOver;
         Time.timeScale = 0;
         facade.ResetData();
@@ -89,6 +97,7 @@ public class GameManager : MonoBehaviour
     }
     public void SetWinScene()
     {
+        soundManager.PlayWinSoundEffect();
         facade.LevelUp();
         facade.SaveGame();
         GameState.currentState = GameState.State.GameOver;      

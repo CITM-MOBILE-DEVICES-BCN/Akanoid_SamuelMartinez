@@ -52,6 +52,7 @@ public class BoosterController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bar"))
         {
+            GameManager.instance.soundManager.PlayPowerUpSoundEffect();
             onTriggerBooster?.Invoke(type);
             Destroy(this.gameObject);
         }

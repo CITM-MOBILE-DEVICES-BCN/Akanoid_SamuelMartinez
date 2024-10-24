@@ -30,6 +30,7 @@ public class GameState : MonoBehaviour
                 {
                     currentState = State.Paused;
                     GameManager.instance.SetPause();
+                    GameManager.instance.soundManager.PlayPauseSoundEffect();
                     Debug.Log("Game State: Paused");
                 }
                 if (Input.GetKeyDown(KeyCode.W))
@@ -48,6 +49,7 @@ public class GameState : MonoBehaviour
                 // Handle Paused state
                 if (Input.GetKeyDown(KeyCode.P))
                 {
+                    GameManager.instance.soundManager.PlayPauseSoundEffect();
                     currentState = State.Playing;
                     GameManager.instance.SetPause();
                     Debug.Log("Game State: Playing");
